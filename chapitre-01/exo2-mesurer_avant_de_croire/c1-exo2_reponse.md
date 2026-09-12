@@ -21,4 +21,14 @@ J'ai vérifié le dossier Build : il n'existe pas à la racine. Les dossiers de 
 
 J'ai aussi trouvé **164 fichiers .cpp/.h dans les dossiers de tests**.
 
-La différence vient donc probablement du fait que la version actuelle du dépôt contient plus de fichiers et de code que la version utilisée pour les chiffres du chapitre.
+
+Apres la remarque du professeur, j'ai aussi regardé la partie `External` avec `jenga info`.
+
+Dans le dossier `Externals`, j'ai trouvé **1673 fichiers .cpp/.h**, avec **787518 lignes**.
+
+En dehors de `Externals`, il reste **2662 fichiers**, avec **1117545 lignes**.
+
+On voit donc que les fichiers externes représentent une grosse partie du dépôt. Et surtout, les **2662 fichiers hors `Externals`** sont assez proches des **2641 fichiers** annoncés dans le chapitre.
+
+Donc, une partie de la différence vient sûrement des dépendances externes qui sont comptées dans mon dépôt actuel. Il reste aussi une différence sur le nombre de lignes, qui peut venir de la version actuelle du dépôt et de la façon dont le comptage a été fait.
+
