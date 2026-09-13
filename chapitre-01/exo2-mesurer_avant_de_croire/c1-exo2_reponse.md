@@ -32,3 +32,10 @@ On voit donc que les fichiers externes représentent une grosse partie du dépô
 
 Donc, une partie de la différence vient sûrement des dépendances externes qui sont comptées dans mon dépôt actuel. Il reste aussi une différence sur le nombre de lignes, qui peut venir de la version actuelle du dépôt et de la façon dont le comptage a été fait.
 
+J’ai regardé les 10 fichiers les plus longs hors `Externals`.
+
+Le plus long fait 33 691 lignes, et les 10 plus longs totalisent 159 511 lignes.
+
+Cela montre que l’écart sur les lignes ne vient pas seulement du nombre de fichiers : certains fichiers pesent dans le total
+
+Donc tout ces nouveux fichiers mesurés expliquent une grande partie de l'ecart
