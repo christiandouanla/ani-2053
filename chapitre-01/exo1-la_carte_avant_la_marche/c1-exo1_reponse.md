@@ -1,3 +1,6 @@
+## les resultats ci dessous ont été obtenus sur la version du depot utilisée au moment de la mesure:
+* date de la mesure: 13 septembre 2026 
+* version du depot: ` 6fb634fc `
 # 1-nombre de projet par type
 ## staticlib : 60
 ## TestSuite : 60
