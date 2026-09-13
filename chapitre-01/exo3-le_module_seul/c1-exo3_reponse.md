@@ -130,3 +130,10 @@ Build Order (5 projects):
 Projects Built:  5/5
 Time:           1.56s
 Status:         ✓ SUCCESS
+# 5 - Observation
+
+Le module qui a pris le plus de temps à construire est **NKContainers**, avec **0,85 s**.
+
+Je n'aurais pas forcément deviné que ce serait lui, car la commande demandait de construire `NKMath`. Cela montre qu'un projet demandé en dernier n'est pas forcément celui qui prend le plus de temps à construire.
+
+
