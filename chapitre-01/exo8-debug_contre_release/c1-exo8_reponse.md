@@ -1,84 +1,183 @@
-# Exercice 8 — Debug contre Release
+# Exercice 8 — Debug vs Release
 
-## 1. Mesures
+## 1. Construction en Debug
 
-J'ai construit le même projet `MonEssai` avec les deux configurations Debug et Release.
+Avant les mesures, j'ai nettoyé les fichiers générés avec :
 
-### Debug
+```
+jenga clean
+```
 
-Commande utilisée :
+J'ai ensuite construit `MonEssai` en configuration Debug :
 
 ```
 jenga build --project MonEssai --config Debug
 ```
 
+Les 6 projets ont été réellement construits :
+````
+| Projet | Temps |
+|        |          |
+| NKPlatform | 4,33 s |
+| NKCore | 3,26 s |
+| NKMemory | 5,02 s |
+| NKContainers | 8,06 s |
+| NKMath | 8,95 s |
+| MonEssai | 4,08 s |
+| **Total** | **33,71 s** |
+````
 Résultat :
 
-- Temps de construction : **5,50 s**
-- Taille du binaire : **148 788 octets**
-- Fichier obtenu : `Build\Bin\Debug-Windows\MonEssai\MonEssai.exe`
+```
+Projects Built:  6/6
+Time:           33.71s
+Status:         ✓ SUCCESS
+```
 
-### Release
+J'ai ensuite mesuré la taille de l'exécutable avec :
 
-Commande utilisée :
+```
+(Get-Item ".\Build\Bin\Debug-Windows\MonEssai\MonEssai.exe").Length
+```
+
+Résultat :
+
+```
+148788
+```
+
+La taille du fichier Debug est donc de **148 788 octets**.
+
+
+
+## 2. Construction en Release
+
+J'ai ensuite construit le même projet en configuration Release :
 
 ```
 jenga build --project MonEssai --config Release
 ```
 
+Les 6 projets ont également été réellement construits :
+````
+| Projet | Temps |
+|        |       |
+| NKPlatform | 4,57 s |
+| NKCore | 3,37 s |
+| NKMemory | 6,49 s |
+| NKContainers | 9,95 s |
+| NKMath | 9,60 s |
+| MonEssai | 4,25 s |
+| **Total** | **38,23 s** |
+````
 Résultat :
 
-- Temps de construction : **55,24 s**
-- Taille du binaire : **117 679 octets**
-- Fichier obtenu : `Build\Bin\Release-Windows\MonEssai\MonEssai.exe`
+```
+Projects Built:  6/6
+Time:           38.23s
+Status:         ✓ SUCCESS
+```
 
-## 2. Comparaison
-````
-| Configuration | Temps | Taille         |
-| Debug         | 5,50 s| 148 788 octets |
-| Release       | 55,24s| 117 679 octets |
-````
+J'ai ensuite mesuré la taille de l'exécutable avec :
 
-La différence de temps est de **49,74 secondes**. Donc dans mon test Release a pris beaucoup plus de temps.
+```
+(Get-Item ".\Build\Bin\Release-Windows\MonEssai\MonEssai.exe").Length
+```
 
-Pour la taille, le fichier Release est plus petit de **31 109 octets**.
+Résultat :
 
-## 3. Les lignes dans les fichiers `.jenga`
+```
+117679
+```
 
-Dans les fichiers des dépendances j'ai trouvé les configurations suivantes.
+La taille du fichier Release est donc de **117 679 octets**.
 
-Pour Debug :
+---
+
+## 3. Comparaison
+
+| Configuration | Temps de construction | Taille de l'exécutable |
+|---|---:|---:|
+| Debug | **33,71 s** | **148 788 octets** |
+| Release | **38,23 s** | **117 679 octets** |
+
+### Différence de temps
+
+```
+38,23 − 33,71 = 4,52 s
+```
+
+La construction Release a donc pris **4,52 s de plus** que la construction Debug.
+
+### Différence de taille
+
+```
+148 788 − 117 679 = 31 109 octets
+```
+
+L'exécutable Release est donc **31 109 octets plus petit** que l'exécutable Debug.
+
+---
+
+## 4. Les lignes du `.jenga` qui expliquent les différences
+
+Dans les fichiers `.jenga` des projets construits, on trouve notamment :
+
+### Configuration Debug
 
 ```
 with filter("config:Debug"):
-    defines(["_DEBUG", "DEBUG", ...])
+    defines([...])
     optimize("Off")
     symbols(True)
 ```
 
-Pour Release :
+La ligne :
+
+```
+optimize("Off")
+```
+
+indique que les optimisations sont désactivées en Debug. Le compilateur a donc moins de travail d'optimisation à effectuer.
+
+La ligne :
+
+```
+symbols(True)
+```
+
+indique que les symboles sont conservés pour la configuration Debug. Cela contribue à avoir un exécutable plus volumineux.
+
+### Configuration Release
 
 ```
 with filter("config:Release"):
-    defines(["NDEBUG", ...])
+    defines([...])
     optimize("Speed")
     symbols(False)
 ```
 
-Dans `Nkentseu.jenga`, on trouve aussi :
+
+## 5. Configuration du workspace
+
+Dans `Nkentseu.jenga`, les deux configurations sont déclarées avec :
 
 ```
 configurations(["Debug", "Release"])
 ```
 
-Cette ligne permet d'avoir les deux configurations.
+Cette ligne explique que le workspace dispose des configurations Debug et Release.
 
-## 4.
 
-On peut voir que les paramètres ne sont pas les mêmes entre Debug et Release.
 
-En Debug, l'optimisation est sur `Off` et les symboles sont activés avec `symbols(True)`.
+## Conclusion
 
-En Release, l'optimisation est sur `Speed` et les symboles sont désactivés avec `symbols(False)`.
+chez moi, la configuration Debug a été construite en **33,71 s** et produit un exécutable de **148 788 octets**.
 
-Dans mon cas, le binaire Release est plus petit mais sa construction a pris beaucoup plus de temps. Je pense que cela vient des paramètres de compilation différents entre les deux configurations.
+La configuration Release a été construite en **38,23 s** et produit un exécutable de **117 679 octets**.
+
+Release prend donc **4,52 s de plus**, mais son exécutable est **31 109 octets plus petit**.
+
+Pour le temps de construction, le mode Debug n’utilise pas d’optimisation, contrairement au mode Release. C’est pourquoi Release peut prendre un peu plus de temps à construire.
+
+Pour la taille du fichier, les symboles de débogage sont activés en Debug mais pas en Release. C’est pourquoi le fichier Debug est plus gros.
