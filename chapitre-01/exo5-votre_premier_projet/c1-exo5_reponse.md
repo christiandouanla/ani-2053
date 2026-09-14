@@ -21,7 +21,7 @@ Applications/
 
 Le fichier `main.cpp` contient un programme minimal qui n’affiche rien :
 
-```cpp
+```
 int main ()
 {
     return 0;
