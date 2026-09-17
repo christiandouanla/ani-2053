@@ -19,7 +19,7 @@ J'ai créé trois fichiers et je les ai ajoutés dans trois commits différents.
 Le premier fichier a été ajouté et validé avec un premier commit :
 
 ```
-563a7cd Ajoute le premier fichier
+563a7cd ajoutons le premier fichier
 ```
 
 ### Deuxième commit
@@ -27,7 +27,7 @@ Le premier fichier a été ajouté et validé avec un premier commit :
 J'ai ensuite créé le deuxième fichier et réalisé un deuxième commit :
 
 ```
-2c2d871 Ajoute le deuxieme fichier
+2c2d871 ajoutons le deuxieme fichier
 ```
 
 ### Troisième commit
@@ -35,7 +35,7 @@ J'ai ensuite créé le deuxième fichier et réalisé un deuxième commit :
 Enfin, j'ai créé le troisième fichier et réalisé le troisième commit :
 
 ```
-fdc49e2 Ajoute le troisieme fichier
+fdc49e2 ajoutons le troisieme fichier
 ```
 
 ## Historique
@@ -49,9 +49,9 @@ git log --oneline
 le résultat etait :
 
 ```
-fdc49e2 (HEAD -> master) Ajoute le troisieme fichier
-2c2d871 Ajoute le deuxieme fichier
-563a7cd Ajoute le premier fichier
+fdc49e2 (HEAD -> master) ajoutons le troisieme fichier
+2c2d871 ajoutons le deuxieme fichier
+563a7cd ajoutons le premier fichier
 ```
 
 Cette commande permet de voir rapidement les trois commits et leur ordre.
@@ -67,9 +67,9 @@ git log --oneline --graph
 le résultat etait :
 
 ```
-* fdc49e2 (HEAD -> master) Ajoute le troisieme fichier
-* 2c2d871 Ajoute le deuxieme fichier
-* 563a7cd Ajoute le premier fichier
+* fdc49e2 (HEAD -> master) ajoutons le troisieme fichier
+* 2c2d871 ajoutons le deuxieme fichier
+* 563a7cd ajoutons le premier fichier
 ```
 
 Le graphe montre que les trois commits se suivent dans une même branche.
