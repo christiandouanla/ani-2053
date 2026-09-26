@@ -1,9 +1,7 @@
 #include "NKWindow/NKMain.h"
 #include "NKWindow/NKWindow.h"
 
-
 int nkmain(const nkentseu::NkEntryState& state) {
-
     nkentseu::NkWindowConfig cfg;
     cfg.title = "MonTitre, etape 02";
     cfg.width = 720;
@@ -15,19 +13,12 @@ int nkmain(const nkentseu::NkEntryState& state) {
         return -1;
     }
 
-    bool running = true;
-
-    while (running) {
-        nkentseu::NkEvent* event = nullptr;
-        while ((event = nkentseu::NkEvents().PollEvent()) != nullptr) {
-            // Process events
-            if (event->Is<nkentseu::NkWindowCloseEvent>()) {
-                running = false;
-            }
-
-            
+    while (window.IsOpen()) {
+        while (nkentseu::NkEvent* event = nkentseu::NkEvents().PollEvent()) {
+        if (event->Is<nkentseu::NkWindowCloseEvent>()) {
+            window.Close();
+        }
         }
     }
-
     return 0;
 }
