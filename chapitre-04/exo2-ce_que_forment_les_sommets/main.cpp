@@ -11,18 +11,23 @@ int main() {
         std::string type;
         long long s;
         std::cin >> type >> s;
-if (type == "POINTS") {
-     std::cout << type << " " << s << " " << s << " POINTS 0\n";
+        if (type == "POINTS") {
+            std::cout << type << " " << s << " " << s << " POINTS 0\n";
             totalPoints += s;
         } else if (type == "LINES") {
-    long long nb = s / 2;
-    long long reste = s % 2;
-    std::cout << type << " " << s << " " << nb << " SEGMENTS " << reste << "\n";
-    totalSegments += nb;
+            long long nb = s / 2;
+            long long reste = s % 2;
+            std::cout << type << " " << s << " " << nb << " SEGMENTS " << reste << "\n";
+            totalSegments += nb;
         } else if (type == "LINE_STRIP") {
             long long nb, reste;
-            if (s >= 2) { nb = s - 1; reste = 0; }
-            else { nb = 0; reste = s; }
+            if (s >= 2) {
+                nb = s - 1;
+                reste = 0;
+            } else {
+                nb = 0;
+                reste = s;
+            }
             std::cout << type << " " << s << " " << nb << " SEGMENTS " << reste << "\n";
             totalSegments += nb;
         } else if (type == "TRIANGLES") {
@@ -32,8 +37,13 @@ if (type == "POINTS") {
             totalTriangles += nb;
         } else if (type == "TRIANGLE_STRIP" || type == "TRIANGLE_FAN") {
             long long nb, reste;
-            if (s >= 3) { nb = s - 2; reste = 0; }
-            else { nb = 0; reste = s; }
+            if (s >= 3) {
+                nb = s - 2;
+                reste = 0;
+            } else {
+                nb = 0;
+                reste = s;
+            }
             std::cout << type << " " << s << " " << nb << " TRIANGLES " << reste << "\n";
             totalTriangles += nb;
         } else {
